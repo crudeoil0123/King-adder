@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCX Commodity Premium Insights</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section class="hero">
+        <div class="overlay"></div>
+        <div class="container hero-content">
+            <div class="badge fade-in">MCX Market Specialist</div>
+            <h1 class="fade-in delay-1">Mastering <span class="highlight">Crude Oil</span> & Commodities</h1>
+            <p class="fade-in delay-2">सटीक Analysis, लाइव अपडेट्स और Profit-Making Strategies सीधे आपके स्क्रीन पर। फालतू का शोर बंद करें, सिर्फ डेटा पर भरोसा करें।</p>
+            
+            <div class="cta-buttons fade-in delay-3">
+                <a href="#github" class="btn btn-primary"><i class="fab fa-github"></i> Explore Repos</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+        
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <span class="ticker-item">CRUDE OIL <span class="up"><i class="fas fa-caret-up"></i> +2.4%</span></span>
+                <span class="ticker-item">GOLD <span class="down"><i class="fas fa-caret-down"></i> -0.8%</span></span>
+                <span class="ticker-item">SILVER <span class="up"><i class="fas fa-caret-up"></i> +1.1%</span></span>
+                <span class="ticker-item">NATURAL GAS <span class="up"><i class="fas fa-caret-up"></i> +3.7%</span></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Follow Us?</h2>
+            <div class="grid">
+                <div class="card reveal">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Advanced Analysis</h3>
+                    <p>क्रूड ऑयल और कमोडिटी मार्केट्स के लिए डेटा-ड्रिवेन एल्गोरिथम और इंडिकेटर्स।</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Real-Time Alerts</h3>
+                    <p>मार्केट में बड़े मूव्स आने से पहले सही समय पर एंट्री और एग्जिट का संकेत।</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-icon"><i class="fas fa-code"></i></div>
+                    <h3>Open Source Logic</h3>
+                    <p>हमारे प्रीमियम टूल्स और स्ट्रेटेजी कोड्स अब गिटहब पर आपके कस्टमाइजेशन के लिए उपलब्ध हैं।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 CrudeOil0123. Built for Smart Traders.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
