@@ -1,65 +1,418 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCX Commodity Premium Insights</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>MCX Premium Insights | SEBI Registered Research Analyst</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        :root {
+            --bg-main: #060913;
+            --bg-card: #0f1424;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --neon-green: #00ffaa;
+            --neon-red: #ff3860;
+            --text-light: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Top Compliance Bar */
+        .sebi-bar {
+            background: linear-gradient(90deg, #091026 0%, #172242 100%);
+            border-bottom: 1px solid var(--gold);
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .sebi-bar span {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+            background: radial-gradient(circle at 50% 40%, #121b36 0%, var(--bg-main) 75%);
+        }
+
+        .vip-badge {
+            background: rgba(212, 175, 55, 0.07);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            max-width: 900px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #fff 30%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            max-width: 750px;
+            margin-bottom: 45px;
+            font-weight: 300;
+        }
+
+        /* VIP Buttons */
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .btn {
+            padding: 16px 36px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-vip {
+            background: linear-gradient(135deg, #fce8a6 0%, var(--gold) 100%);
+            color: #000;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-vip:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.43);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.02);
+        }
+
+        /* Live Market Ticker */
+        .ticker-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #090d1a;
+            border-top: 1px solid var(--border-color);
+            padding: 14px 0;
+            overflow: hidden;
+        }
+
+        .ticker-inner {
+            display: flex;
+            white-space: nowrap;
+            animation: tickerSlide 30s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .ticker-item span.up { color: var(--neon-green); }
+        .ticker-item span.down { color: var(--neon-red); }
+
+        @keyframes tickerSlide {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .vip-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 50px 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .vip-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .vip-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-icon-wrap {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        .vip-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: -0.3px;
+        }
+
+        .vip-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Regulatory Disclaimer Footer */
+        .compliance-footer {
+            background-color: #03050a;
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .sebi-badge-large {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .disclaimer-text {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-align: justify;
+            text-align-last: center;
+        }
+
+        /* Entrance Animations */
+        .anim-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: luxeFade 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .delay-1 { animation-delay: 0.15s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
+
+        @keyframes luxeFade {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Reveal Animation Trigger */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.6rem; }
+            .hero p { font-size: 1.05rem; }
+            .cta-group { flex-direction: column; width: 100%; max-width: 320px; }
+            .vip-card { padding: 35px 25px; }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- SEBI Compliance Top Bar -->
+    <div class="sebi-bar">
+        <i class="fas fa-shield-alt"></i> SEBI REGISTERED RESEARCH ANALYST &bull; REGISTRATION NO: <span>INH00001954</span>
+    </div>
+
+    <!-- Hero / Main Header Area -->
     <section class="hero">
-        <div class="overlay"></div>
-        <div class="container hero-content">
-            <div class="badge fade-in">MCX Market Specialist</div>
-            <h1 class="fade-in delay-1">Mastering <span class="highlight">Crude Oil</span> & Commodities</h1>
-            <p class="fade-in delay-2">सटीक Analysis, लाइव अपडेट्स और Profit-Making Strategies सीधे आपके स्क्रीन पर। फालतू का शोर बंद करें, सिर्फ डेटा पर भरोसा करें।</p>
-            
-            <div class="cta-buttons fade-in delay-3">
-                <a href="#github" class="btn btn-primary"><i class="fab fa-github"></i> Explore Repos</a>
-                <a href="#features" class="btn btn-secondary">Learn More</a>
-            </div>
+        <div class="vip-badge anim-fade">Institutional Grade Analytics</div>
+        <h1 class="anim-fade delay-1">Elite MCX Commodity <span>Research & Intelligence</span></h1>
+        <p class="anim-fade delay-2">Empowering professional traders with high-precision quantitative analysis and structural data for Crude Oil, Natural Gas, and Bullions.</p>
+        
+        <div class="cta-group anim-fade delay-3">
+            <a href="#" class="btn btn-vip"><i class="fab fa-telegram-plane"></i> Access VIP Room</a>
+            <a href="#intel" class="btn btn-outline">Review Analytics</a>
         </div>
         
-        <div class="ticker-wrap">
-            <div class="ticker">
-                <span class="ticker-item">CRUDE OIL <span class="up"><i class="fas fa-caret-up"></i> +2.4%</span></span>
-                <span class="ticker-item">GOLD <span class="down"><i class="fas fa-caret-down"></i> -0.8%</span></span>
-                <span class="ticker-item">SILVER <span class="up"><i class="fas fa-caret-up"></i> +1.1%</span></span>
-                <span class="ticker-item">NATURAL GAS <span class="up"><i class="fas fa-caret-up"></i> +3.7%</span></span>
+        <!-- Live Market Ticker Simulation -->
+        <div class="ticker-container">
+            <div class="ticker-inner">
+                <div class="ticker-item">CRUDE OIL <span class="up"><i class="fas fa-arrow-up"></i> +2.34%</span></div>
+                <div class="ticker-item">NATURAL GAS <span class="up"><i class="fas fa-arrow-up"></i> +4.12%</span></div>
+                <div class="ticker-item">GOLD GLOBAL <span class="down"><i class="fas fa-arrow-down"></i> -0.45%</span></div>
+                <div class="ticker-item">SILVER MCX <span class="up"><i class="fas fa-arrow-up"></i> +1.18%</span></div>
+                <div class="ticker-item">COPPER <span class="down"><i class="fas fa-arrow-down"></i> -0.22%</span></div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
+    <!-- Institutional Features -->
+    <section id="intel" class="features">
         <div class="container">
-            <h2 class="section-title">Why Follow Us?</h2>
-            <div class="grid">
-                <div class="card reveal">
-                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Advanced Analysis</h3>
-                    <p>क्रूड ऑयल और कमोडिटी मार्केट्स के लिए डेटा-ड्रिवेन एल्गोरिथम और इंडिकेटर्स।</p>
+            <div class="section-header">
+                <h2>Strategic Core Pillars</h2>
+                <p>Advanced advisory ecosystem designed strictly for disciplined capital allocators.</p>
+            </div>
+            
+            <div class="grid-layout">
+                <div class="vip-card reveal">
+                    <div class="card-icon-wrap"><i class="fas fa-layer-group"></i></div>
+                    <h3>Macro-Data Modeling</h3>
+                    <p>Our frameworks combine global inventory metrics, geopolitical tracking, and algorithmic flow data tailored for Indian MCX hours.</p>
                 </div>
-                <div class="card reveal">
-                    <div class="card-icon"><i class="fas fa-bolt"></i></div>
-                    <h3>Real-Time Alerts</h3>
-                    <p>मार्केट में बड़े मूव्स आने से पहले सही समय पर एंट्री और एग्जिट का संकेत।</p>
+                <div class="vip-card reveal">
+                    <div class="card-icon-wrap"><i class="fas fa-crosshairs"></i></div>
+                    <h3>Precision Execution</h3>
+                    <p>Asymmetrical risk-to-reward matrices mapped mathematically to optimize entry levels while tightly controlling drawdown phases.</p>
                 </div>
-                <div class="card reveal">
-                    <div class="card-icon"><i class="fas fa-code"></i></div>
-                    <h3>Open Source Logic</h3>
-                    <p>हमारे प्रीमियम टूल्स और स्ट्रेटेजी कोड्स अब गिटहब पर आपके कस्टमाइजेशन के लिए उपलब्ध हैं।</p>
+                <div class="vip-card reveal">
+                    <div class="card-icon-wrap"><i class="fas fa-balance-scale"></i></div>
+                    <h3>Regulatory Compliance</h3>
+                    <p>Fully compliant research operations giving transparency, transparency-vetted logs, and structural auditing frameworks.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 CrudeOil0123. Built for Smart Traders.</p>
+    <!-- Regulatory Legal Footer Section -->
+    <footer class="compliance-footer">
+        <div class="container footer-content">
+            <div class="sebi-badge-large">SEBI REGISTERED ENTITY</div>
+            <p><strong>Registration Number:</strong> INH00001954</p>
+            <p class="disclaimer-text">
+                <strong>Regulatory Disclaimer:</strong> Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BASL and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors. The scope of research activities is bounded within the rules structured under SEBI (Research Analysts) Regulations, 2014.
+            </p>
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <p>&copy; 2026 CrudeOil0123 Insights. Managed Globally. Executed Professionally.</p>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Scroll Reveal Intelligence Engine
+        const revealElements = () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const triggerPoint = 120;
+                
+                if (elementTop < windowHeight - triggerPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealElements);
+        window.dispatchEvent(new Event('scroll')); // Run on initial load
+    </script>
 </body>
 </html>
